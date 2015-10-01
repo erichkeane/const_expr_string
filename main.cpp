@@ -283,6 +283,17 @@ bool test_ostream()
     static_assert(ctor1.find_last_of("efa", 17) == 16, "find_last_of");
     static_assert(ctor1.find_last_of("efa", 4, 2) == 3, "find_last_of");
 
+    static_assert(ctor1.find_first_not_of(ctor2) == 1, "find_first_not_of");
+    static_assert(ctor1.find_first_not_of(ctor2, 2) == 3, "find_first_not_of");
+    static_assert(ctor1.find_first_not_of('a') == 1, "find_first_not_of");
+    static_assert(ctor1.find_first_not_of("efa", 2) == 2, "find_first_not_of");
+    static_assert(ctor1.find_first_not_of("efa", 2, 2) == 2, "find_first_not_of");
+
+    static_assert(ctor1.find_last_not_of(ctor2) == 19, "find_last_not_of");
+    static_assert(ctor1.find_last_not_of(ctor2, 16) == 15, "find_last_not_of");
+    static_assert(ctor1.find_last_not_of('f') == 18, "find_last_not_of");
+    static_assert(ctor1.find_last_not_of("efa", 16) == 15, "find_last_not_of");
+    static_assert(ctor1.find_last_not_of("efa", 3, 2) == 2, "find_last_not_of");
     return true;
 }
 
