@@ -81,50 +81,6 @@ constexpr bool test_const_iterators()
     return true;
 }
 
-//Reenable when we get const-expr reverse-iterator
-//constexpr bool test_reverse_iterators()
-//{
-//    constexpr const char* root = "asdfqefaxdvaqwerasdf";
-//    constexpr const_expr_string::const_expr_string<char> ctor1 = root;
-//
-//    using It = const_expr_string::const_expr_string<char>::reverse_iterator;
-//
-//    size_t i = 0;
-//    constexpr It itr1 = ctor1.rbegin();
-//    static_assert(*itr1 == root[0], "itr fail");
-//
-//    for(It itr = ctor1.rbegin(); itr < ctor1.rend(); ++itr, ++i)
-//    {
-//        if (*itr != root[i])
-//        {
-//            return false;
-//        }
-//    }
-//
-//    return true;
-//}
-//
-//constexpr bool test_const_reverse_iterators()
-//{
-//    constexpr const char* root = "asdfqefaxdvaqwerasdf";
-//    constexpr const_expr_string::const_expr_string<char> ctor1 = root;
-//
-//    size_t i = 0;
-//    constexpr It itr1 = ctor1.crbegin();
-//    static_assert(*itr1 == root[0], "itr fail");
-//
-//    using It = const_expr_string::const_expr_string<char>::const_reverse_iterator;
-//    for(It itr = ctor1.crbegin(); itr < ctor1.crend(); ++itr, ++i)
-//    {
-//        if (*itr != root[i])
-//        {
-//            return false;
-//        }
-//    }
-//
-//    return true;
-//}
-
 constexpr bool test_index_op()
 {
     constexpr const char* root = "asdfqefaxdvaqwerasdf";
@@ -296,6 +252,31 @@ bool test_ostream()
     return true;
 }
 
+constexpr bool test_find()
+{
+    constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    constexpr const_expr_string::const_expr_string<char> ctor1 = root;
+    constexpr const char* root2 = "axd";
+    constexpr const_expr_string::const_expr_string<char> ctor2 = root2;
+    constexpr const char* root3 = "df";
+    constexpr const_expr_string::const_expr_string<char> ctor3 = root3;
+
+    static_assert(ctor1.find(ctor2, 2) == 7, "find");
+    static_assert(ctor1.find('q', 1) == 4, "find");
+    static_assert(ctor1.find("axd", 3) == 7, "find");
+    static_assert(ctor1.find("axd", 3, 3) == 7, "find");
+
+    static_assert(ctor1.rfind(ctor3) == 18, "rfind");
+    static_assert(ctor1.rfind('d') == 18, "rfind");
+    static_assert(ctor1.rfind("df") == 18, "rfind");
+    static_assert(ctor1.rfind("dfe", ctor1.size(), 2) == 18, "rfind");
+
+    static_assert(ctor1.find_first_of(ctor2) == 0, "find first of");
+    static_assert(ctor1.find_first_of(ctor2, 1) == 7, "find first of");
+
+    return true;
+}
+
 int main()
 {
     static_assert(test_ctors(), "failed");
@@ -303,18 +284,14 @@ int main()
     static_assert(test_sizes(), "failed");
     static_assert(test_iterators(), "failed");
     static_assert(test_const_iterators(), "failed");
-    //static_assert(test_reverse_iterators(), "failed");
-    //static_assert(test_const_reverse_iterators(), "failed");
     static_assert(test_index_op(), "failed");
     static_assert(test_at(), "failed");
     static_assert(test_data(), "failed");
     static_assert(test_base_compare(), "failed");
-
-
-
     static_assert(test_empty(), "failed");
     static_assert(test_front_back(), "failed");
     static_assert(test_max_size(), "failed");
     static_assert(test_compare_operators(), "failed");
     assert(test_ostream());
+    static_assert(test_find(), "failed");
 }
