@@ -76,17 +76,20 @@ namespace const_expr_string
             constexpr size_type find_first_of(value_type c, size_type pos = 0) const;
             constexpr size_type find_first_of(const_pointer, size_type pos = 0) const;
             constexpr size_type find_first_of(const_pointer, size_type pos, size_type count) const;
-            constexpr size_type find_last_of(const_expr_string v, size_type pos = 0) const;
-            constexpr size_type find_last_of(value_type c, size_type pos = 0) const;
-            constexpr size_type find_last_of(const_pointer, size_type pos = 0) const;
+
+            constexpr size_type find_last_of(const_expr_string v, size_type pos = npos) const;
+            constexpr size_type find_last_of(value_type c, size_type pos = npos) const;
+            constexpr size_type find_last_of(const_pointer, size_type pos = npos) const;
             constexpr size_type find_last_of(const_pointer, size_type pos, size_type count) const;
+
             constexpr size_type find_first_not_of(const_expr_string v, size_type pos = 0) const;
             constexpr size_type find_first_not_of(value_type c, size_type pos = 0) const;
             constexpr size_type find_first_not_of(const_pointer, size_type pos = 0) const;
             constexpr size_type find_first_not_of(const_pointer, size_type pos, size_type count) const;
-            constexpr size_type find_last_not_of(const_expr_string v, size_type pos = 0) const;
-            constexpr size_type find_last_not_of(value_type c, size_type pos = 0) const;
-            constexpr size_type find_last_not_of(const_pointer, size_type pos = 0) const;
+
+            constexpr size_type find_last_not_of(const_expr_string v, size_type pos = npos) const;
+            constexpr size_type find_last_not_of(value_type c, size_type pos = npos) const;
+            constexpr size_type find_last_not_of(const_pointer, size_type pos = npos) const;
             constexpr size_type find_last_not_of(const_pointer, size_type pos, size_type count) const;
         private:
             const_pointer _data;
@@ -160,6 +163,24 @@ namespace const_expr_string
     };
 
     template <typename CharT>
+    struct is_not_one_of
+    {
+        const_expr_string<CharT>& _c;
+
+        constexpr is_not_one_of(const_expr_string<CharT>& c): _c(c){}
+
+        constexpr bool operator()(const CharT* lhs)
+        {
+            for (auto&& itr : _c)
+            {
+                if (itr == *lhs)
+                    return false;
+            }
+            return true;
+        }
+    };
+
+    template <typename CharT>
     struct is_one_of_partial
     {
         const_expr_string<CharT>& _c;
@@ -178,6 +199,28 @@ namespace const_expr_string
                     return true;
             }
             return false;
+        }
+    };
+
+    template <typename CharT>
+    struct is_not_one_of_partial
+    {
+        const_expr_string<CharT>& _c;
+        typename const_expr_string<CharT>::size_type _count;
+
+
+        constexpr is_not_one_of_partial(const_expr_string<CharT>& c,
+                typename const_expr_string<CharT>::size_type count): _c(c), _count(count){}
+
+        constexpr bool operator()(const CharT* lhs)
+        {
+            for (typename const_expr_string<CharT>::size_type i = 0;
+                    i < _count; ++i)
+            {
+                if (*lhs == _c[i])
+                    return false;
+            }
+            return true;
         }
     };
 
@@ -569,26 +612,54 @@ namespace const_expr_string
                 less<const_expr_string<CharT>::size_type>(),
                 plus<const_expr_string<CharT>::size_type>(),
                 temp);
-
-        return npos;
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
             const_expr_string<CharT>::const_expr_string v,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_base(
+                pos == npos ? size() - 1 : pos,
+                0,
+                greater_equal<const_expr_string<CharT>::size_type>(),
+                minus<const_expr_string<CharT>::size_type>(),
+                is_one_of<CharT>(v));
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
             typename const_expr_string<CharT>::value_type c,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_base(
+                pos == npos ? size() - 1 : pos,
+                0,
+                greater_equal<const_expr_string<CharT>::size_type>(),
+                minus<const_expr_string<CharT>::size_type>(),
+                char_equal<CharT>(c));
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
-            typename const_expr_string<CharT>::const_pointer,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::const_pointer v,
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_last_of(const_expr_string<CharT>(v), pos);
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
-            typename const_expr_string<CharT>::const_pointer,
+            typename const_expr_string<CharT>::const_pointer v,
             typename const_expr_string<CharT>::size_type pos,
-            typename const_expr_string<CharT>::size_type count) const{return 0;}
+            typename const_expr_string<CharT>::size_type count) const
+    {
+        const_expr_string<CharT> v2 (v);
+        is_one_of_partial<CharT> temp (v2, count);
+
+        return find_base(
+                pos == npos ? size() - 1 : pos,
+                0,
+                greater_equal<const_expr_string<CharT>::size_type>(),
+                minus<const_expr_string<CharT>::size_type>(),
+                temp);
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_not_of(
             const_expr_string<CharT>::const_expr_string v,

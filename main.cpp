@@ -274,9 +274,14 @@ bool test_ostream()
     static_assert(ctor1.find_first_of(ctor2) == 0, "find_first_of");
     static_assert(ctor1.find_first_of(ctor2, 1) == 2, "find_first_of");
     static_assert(ctor1.find_first_of('f') == 3, "find_first_of");
-    static_assert(ctor1.find_first_of("efa", 1, 2) == 3, "find_first_of");
     static_assert(ctor1.find_first_of("efa", 1) == 3, "find_first_of");
+    static_assert(ctor1.find_first_of("efa", 1, 2) == 3, "find_first_of");
 
+    static_assert(ctor1.find_last_of(ctor2) == 18, "find_last_of");
+    static_assert(ctor1.find_last_of(ctor2, 17) == 16, "find_last_of");
+    static_assert(ctor1.find_last_of('f') == 19, "find_last_of");
+    static_assert(ctor1.find_last_of("efa", 17) == 16, "find_last_of");
+    static_assert(ctor1.find_last_of("efa", 4, 2) == 3, "find_last_of");
 
     return true;
 }
