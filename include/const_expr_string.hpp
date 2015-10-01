@@ -275,7 +275,6 @@ namespace const_expr_string
         return lhs.compare(rhs) >= 0;
     }
 
-    // TODO: Test!!, doesn't work?!
     // OStream conversion
     template <typename CharT, typename Traits>
     std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os,
