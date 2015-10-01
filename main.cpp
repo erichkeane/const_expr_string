@@ -252,7 +252,7 @@ bool test_ostream()
     return true;
 }
 
-constexpr bool test_find()
+/*constexpr */bool test_find()
 {
     constexpr const char* root = "asdfqefaxdvaqwerasdf";
     constexpr const_expr_string::const_expr_string<char> ctor1 = root;
@@ -271,8 +271,12 @@ constexpr bool test_find()
     static_assert(ctor1.rfind("df") == 18, "rfind");
     static_assert(ctor1.rfind("dfe", ctor1.size(), 2) == 18, "rfind");
 
-    static_assert(ctor1.find_first_of(ctor2) == 0, "find first of");
-    static_assert(ctor1.find_first_of(ctor2, 1) == 7, "find first of");
+    static_assert(ctor1.find_first_of(ctor2) == 0, "find_first_of");
+    static_assert(ctor1.find_first_of(ctor2, 1) == 2, "find_first_of");
+    static_assert(ctor1.find_first_of('f') == 3, "find_first_of");
+    static_assert(ctor1.find_first_of("efa", 1, 2) == 3, "find_first_of");
+    static_assert(ctor1.find_first_of("efa", 1) == 3, "find_first_of");
+
 
     return true;
 }
@@ -293,5 +297,6 @@ int main()
     static_assert(test_max_size(), "failed");
     static_assert(test_compare_operators(), "failed");
     assert(test_ostream());
-    static_assert(test_find(), "failed");
+    //static_assert(test_find(), "failed");
+    test_find();
 }

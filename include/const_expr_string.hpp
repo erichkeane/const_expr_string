@@ -141,6 +141,46 @@ namespace const_expr_string
         }
     };
 
+    template <typename CharT>
+    struct is_one_of
+    {
+        const_expr_string<CharT>& _c;
+
+        constexpr is_one_of(const_expr_string<CharT>& c): _c(c){}
+
+        constexpr bool operator()(const CharT* lhs)
+        {
+            for (auto&& itr : _c)
+            {
+                if (itr == *lhs)
+                    return true;
+            }
+            return false;
+        }
+    };
+
+    template <typename CharT>
+    struct is_one_of_partial
+    {
+        const_expr_string<CharT>& _c;
+        typename const_expr_string<CharT>::size_type _count;
+
+
+        constexpr is_one_of_partial(const_expr_string<CharT>& c,
+                typename const_expr_string<CharT>::size_type count): _c(c), _count(count){}
+
+        constexpr bool operator()(const CharT* lhs)
+        {
+            for (typename const_expr_string<CharT>::size_type i = 0;
+                    i < _count; ++i)
+            {
+                if (*lhs == _c[i])
+                    return true;
+            }
+            return false;
+        }
+    };
+
     template <typename T>
     struct less
     {
@@ -403,7 +443,7 @@ namespace const_expr_string
     {
         return find_base(
                 pos,
-                size(), less<CharT>(),
+                size(), less<const_expr_string<CharT>::size_type>(),
                 plus<const_expr_string<CharT>::size_type>(), ces_equal<CharT>(v));
     }
 
@@ -414,7 +454,7 @@ namespace const_expr_string
     {
         return find_base(
                 pos == npos ? size() - 1 : pos,
-                0, greater_equal<CharT>(),
+                0, greater_equal<const_expr_string<CharT>::size_type>(),
                 minus<const_expr_string<CharT>::size_type>(), ces_equal<CharT>(v));
     }
 
@@ -424,7 +464,7 @@ namespace const_expr_string
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(pos,
-                size(), less<CharT>(),
+                size(), less<const_expr_string<CharT>::size_type>(),
                 plus<const_expr_string<CharT>::size_type>(), char_equal<CharT>(c)
                 );
     }
@@ -436,7 +476,7 @@ namespace const_expr_string
     {
         return find_base(
                 pos == npos ? size() - 1 : pos,
-                0, greater_equal<CharT>(),
+                0, greater_equal<const_expr_string<CharT>::size_type>(),
                 minus<const_expr_string<CharT>::size_type>(), char_equal<CharT>(c)
                 );
     }
@@ -466,7 +506,7 @@ namespace const_expr_string
         ces_equal<CharT> temp (v2, count);
         return find_base(
                 pos,
-                size(), less<CharT>(),
+                size(), less<const_expr_string<CharT>::size_type>(),
                 plus<const_expr_string<CharT>::size_type>(), temp);
     }
     template<typename CharT>
@@ -479,26 +519,59 @@ namespace const_expr_string
         ces_equal<CharT> temp (v2, count);
         return find_base(
                 pos == npos ? size() - 1 : pos,
-                0, greater_equal<CharT>(),
+                0, greater_equal<const_expr_string<CharT>::size_type>(),
                 minus<const_expr_string<CharT>::size_type>(), temp);
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_of(
             const_expr_string<CharT>::const_expr_string v,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_base(
+                pos,
+                size(),
+                less<const_expr_string<CharT>::size_type>(),
+                plus<const_expr_string<CharT>::size_type>(),
+                is_one_of<CharT>(v));
+    }
+
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_of(
             typename const_expr_string<CharT>::value_type c,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_base(
+                pos,
+                size(),
+                less<const_expr_string<CharT>::size_type>(),
+                plus<const_expr_string<CharT>::size_type>(),
+                char_equal<CharT>(c));
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_of(
-            typename const_expr_string<CharT>::const_pointer,
-            typename const_expr_string<CharT>::size_type pos) const{return 0;}
+            typename const_expr_string<CharT>::const_pointer v,
+            typename const_expr_string<CharT>::size_type pos) const
+    {
+        return find_first_of(const_expr_string<CharT>(v),pos);
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_of(
-            typename const_expr_string<CharT>::const_pointer,
+            typename const_expr_string<CharT>::const_pointer v,
             typename const_expr_string<CharT>::size_type pos,
-            typename const_expr_string<CharT>::size_type count) const{return 0;}
+            typename const_expr_string<CharT>::size_type count) const
+    {
+        const_expr_string<CharT> v2 (v);
+        is_one_of_partial<CharT> temp (v2, count);
+
+        return find_base(
+                pos,
+                size(),
+                less<const_expr_string<CharT>::size_type>(),
+                plus<const_expr_string<CharT>::size_type>(),
+                temp);
+
+        return npos;
+    }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
             const_expr_string<CharT>::const_expr_string v,
