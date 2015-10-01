@@ -66,9 +66,9 @@ namespace const_expr_string
             constexpr int compare (size_type pos1, size_type count1, const_expr_string v) const;
             constexpr int compare (size_type pos1, size_type count1, const_expr_string v,
                     size_type pos2, size_type count2) const;
-            constexpr int compare (const_pointer s) const; // TODO: not implemented
-            constexpr int compare (size_type pos1, size_type count1, const_pointer s) const; // TODO: not implemented
-            constexpr int compare (size_type pos1, size_type count1, const_pointer s, size_type count2) const; // TODO: not implemented
+            constexpr int compare (const_pointer s) const;
+            constexpr int compare (size_type pos1, size_type count1, const_pointer s) const;
+            constexpr int compare (size_type pos1, size_type count1, const_pointer s, size_type count2) const;
 
             // Finds
             constexpr size_type find(const_expr_string v, size_type pos = 0) const;// TODO: not implemented
