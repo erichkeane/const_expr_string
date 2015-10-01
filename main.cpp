@@ -172,7 +172,10 @@ constexpr bool test_base_compare()
     constexpr const_expr_string::const_expr_string<char> ctor3 = root3;
     constexpr const char* root4 = "asdfqefaxdvaqwerasdc";
     constexpr const_expr_string::const_expr_string<char> ctor4 = root4;
+    constexpr const char* root5 = "qefax";
+    constexpr const_expr_string::const_expr_string<char> ctor5 = root5;
 
+    // Compare-all
     static_assert(ctor1.compare(ctor2) == 0, " failed equal");
     static_assert(ctor1.compare(ctor3) != 0, " failed not equal");
     static_assert(ctor1.compare(ctor3) < 0, " failed lt");
@@ -181,6 +184,46 @@ constexpr bool test_base_compare()
     static_assert(ctor1.compare(ctor4) > 0, " failed gt");
     static_assert(ctor1.compare(ctor4) >= 0, " failed gte");
     static_assert(ctor1.compare(ctor2) >= 0, " failed gte");
+
+    // compare first-range-only
+    static_assert(ctor1.compare(4, 5, ctor5) == 0, "failed equal");
+    static_assert(ctor1.compare(10, 5, ctor5) != 0, "failed not equal");
+    static_assert(ctor1.compare(10, 4, ctor5) < 0, "failed lt");
+    static_assert(ctor1.compare(10, 4, ctor5) <= 0, "failed lte");
+    static_assert(ctor1.compare(10, 7, ctor5) > 0, "failed gt");
+    static_assert(ctor1.compare(10, 7, ctor5) >= 0, "failed gte");
+    static_assert(ctor1.compare(5, 5, ctor5) < 0, "failed lt");
+    static_assert(ctor1.compare(8, 5, ctor5) > 0, "failed gt");
+
+    // compare full ranges
+    static_assert(ctor1.compare(4, 5, ctor5, 0, 5) == 0, "failed equal");
+    static_assert(ctor1.compare(4, 5, ctor5, 0, 4) > 0, "failed gt");
+    static_assert(ctor1.compare(4, 4, ctor5, 0, 5) < 0, "failed lt");
+    static_assert(ctor1.compare(6, 3, ctor5, 2, 3) == 0, "failed equal");
+    static_assert(ctor1.compare(10, 3, ctor5, 2, 3) != 0, "failed not equal");
+
+    // Compare-all with char ptrs
+    static_assert(ctor1.compare("asdfqefaxdvaqwerasdf") == 0, " failed equal");
+    static_assert(ctor1.compare("asdfqdfaxdvaqwerasdf") != 0, " failed not equal");
+    static_assert(ctor1.compare("asdfqffaxdvaqwerasdf") < 0, " failed lt");
+    static_assert(ctor1.compare("asdfqdfaxdvaqwerasdf") > 0, " failed gt");
+
+    // compare first-range-only with char ptrs
+    static_assert(ctor1.compare(4, 5, "qefax") == 0, "failed equal");
+    static_assert(ctor1.compare(10, 5, "qefax") != 0, "failed not equal");
+    static_assert(ctor1.compare(10, 4, "qefax") < 0, "failed lt");
+    static_assert(ctor1.compare(10, 4, "qefax") <= 0, "failed lte");
+    static_assert(ctor1.compare(10, 7, "qefax") > 0, "failed gt");
+    static_assert(ctor1.compare(10, 7, "qefax") >= 0, "failed gte");
+    static_assert(ctor1.compare(5, 5, "qefax") < 0, "failed lt");
+    static_assert(ctor1.compare(8, 5, "qefax") > 0, "failed gt");
+
+    // compare full ranges with char ptrs
+    static_assert(ctor1.compare(4, 5, "qefax", 5) == 0, "failed equal");
+    static_assert(ctor1.compare(4, 5, "qefax", 4) > 0, "failed gt");
+    static_assert(ctor1.compare(4, 4, "qefax", 5) < 0, "failed lt");
+    static_assert(ctor1.compare(6, 3, "fax", 3) == 0, "failed equal");
+    static_assert(ctor1.compare(10, 3, "fax", 3) != 0, "failed not equal");
     return true;
 
 }

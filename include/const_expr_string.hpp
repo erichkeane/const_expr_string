@@ -63,8 +63,9 @@ namespace const_expr_string
 
             // Compares
             constexpr int compare (const_expr_string v) const;
-            constexpr int compare (size_type pos1, size_type count1, const_expr_string v) const; // TODO: not implemented
-            constexpr int compare (size_type pos1, size_type count1, const_expr_string v, size_type pos2, size_type count2) const; // TODO: not implemented
+            constexpr int compare (size_type pos1, size_type count1, const_expr_string v) const;
+            constexpr int compare (size_type pos1, size_type count1, const_expr_string v,
+                    size_type pos2, size_type count2) const;
             constexpr int compare (const_pointer s) const; // TODO: not implemented
             constexpr int compare (size_type pos1, size_type count1, const_pointer s) const; // TODO: not implemented
             constexpr int compare (size_type pos1, size_type count1, const_pointer s, size_type count2) const; // TODO: not implemented
@@ -96,6 +97,12 @@ namespace const_expr_string
             constexpr size_type find_last_not_of(const_pointer, size_type pos, size_type count) const;// TODO: not implemented
         private:
             const_pointer _data;
+            static constexpr size_type str_len(const char* str)
+            {
+                size_type i = 0;
+                while (str[i] != '\0') ++i;
+                return i;
+            }
     };
 
     // Implementation
@@ -113,14 +120,10 @@ namespace const_expr_string
         return _data;
     }
 
-    // works with C++14, will likely need a helper recursive function
-    // for C++11
     template <typename CharT>
     constexpr size_t const_expr_string<CharT>::length() const noexcept
     {
-        size_type i = 0;
-        while (_data[i] != '\0') ++i;
-        return i;
+        return const_expr_string<CharT>::str_len(_data);
     }
 
     template <typename CharT>
@@ -223,19 +226,68 @@ namespace const_expr_string
         return _data[0] == '\0';
     }
 
+    // Compare functions
     template<typename CharT>
     constexpr int const_expr_string<CharT>::compare (const_expr_string<CharT> v) const
     {
-        if (size() < v.size()) return -1;
-        if (size() > v.size()) return 1;
+        return compare(0, size(), v, 0, size());
+    }
 
-        for (const_expr_string<CharT>::size_type i = 0; i < size(); ++i)
+    template<typename CharT>
+    constexpr int const_expr_string<CharT>::compare (typename const_expr_string<CharT>::size_type pos1,
+            typename const_expr_string<CharT>::size_type count1,
+            typename const_expr_string<CharT>::const_expr_string v) const
+    {
+        return compare (pos1, count1, v, 0, v.size());
+    }
+
+    template<typename CharT>
+    constexpr int const_expr_string<CharT>::compare (typename const_expr_string<CharT>::size_type pos1,
+            typename const_expr_string<CharT>::size_type count1,
+            typename const_expr_string<CharT>::const_expr_string v,
+            const_expr_string<CharT>::size_type pos2,
+            const_expr_string<CharT>::size_type count2) const
+    {
+        typename const_expr_string<CharT>::size_type lhsSize = count1;
+        typename const_expr_string<CharT>::size_type rhsSize = count2;
+
+        if (lhsSize < rhsSize) return -1;
+        if (lhsSize > rhsSize) return 1;
+
+        for (const_expr_string<CharT>::size_type i = 0; i < lhsSize; ++i)
         {
-            if (_data[i] < v._data[i]) return -1;
-            if (_data[i] > v._data[i]) return 1;
+            if (_data[i + pos1] < v._data[i + pos2]) return -1;
+            if (_data[i + pos1] > v._data[i + pos2]) return 1;
         }
 
         return 0;
+    }
+
+
+    template<typename CharT>
+    constexpr int const_expr_string<CharT>::compare (
+            typename const_expr_string<CharT>::const_pointer s) const
+    {
+        return compare(0, size(), s, str_len(s));
+    }
+
+    template<typename CharT>
+    constexpr int const_expr_string<CharT>::compare (
+            typename const_expr_string<CharT>::size_type pos1,
+            typename const_expr_string<CharT>::size_type count1,
+            typename const_expr_string<CharT>::const_pointer s) const
+    {
+        return compare(pos1, count1, s, str_len(s));
+    }
+
+    template<typename CharT>
+    constexpr int const_expr_string<CharT>::compare (
+            typename const_expr_string<CharT>::size_type pos1,
+            typename const_expr_string<CharT>::size_type count1,
+            typename const_expr_string<CharT>::const_pointer s,
+            typename const_expr_string<CharT>::size_type count2) const
+    {
+        return compare(pos1, count1, const_expr_string<CharT>(s), 0, count2);
     }
 
     // compare operators
