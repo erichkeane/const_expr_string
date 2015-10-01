@@ -278,9 +278,9 @@ namespace const_expr_string
     // TODO: Test!!, doesn't work?!
     // OStream conversion
     template <typename CharT, typename Traits>
-    std::basic_ostream<CharT, Traits&> operator <<(std::basic_ostream<CharT, Traits>& os,
+    std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os,
         const_expr_string<CharT> v)
     {
-        return os << v;
+        return os << v.data();
     }
 } // namespace const_expr_string

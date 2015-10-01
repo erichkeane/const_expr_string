@@ -243,8 +243,14 @@ constexpr bool test_empty()
 
 bool test_ostream()
 {
-    // TODO validate!!
-    return false;
+    constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    constexpr const_expr_string::const_expr_string<char> ctor1 = root;
+
+    std::stringstream ss;
+    assert(ss == ss << ctor1);
+
+    assert(ss.str() == root);
+    return true;
 }
 
 int main()
