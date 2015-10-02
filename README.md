@@ -8,8 +8,12 @@ It emulates string_view as close as possible.
 
 Compatible with C++14 AND C++11 (though separate implementations for each for a few functions).  Tested on G++4.9 and 5.2, and clang++ 3.5 and 3.6.1.
 
-To compile the main test, just do:
+To compile the main test, just do one of the following:
+
 g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
-g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
-g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
-g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
+
+g++ -std=c++11 -O3 -Wextra -Wall -Werror -I./include main.cpp
+
+clang++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
+
+clang++ -std=c++11 -O3 -Wextra -Wall -Werror -I./include main.cpp
