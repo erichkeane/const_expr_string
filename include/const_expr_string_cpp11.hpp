@@ -3,7 +3,7 @@ namespace const_expr_string
 {
     template <typename CharT>
     constexpr typename const_expr_string<CharT>::size_type
-    const_expr_string<CharT>::str_len(const char* str)
+    const_expr_string<CharT>::str_len(const_expr_string<CharT>::const_pointer str)
     {
         return str[0] =='\0' ? 0 : 1 + str_len(str+1);
     }

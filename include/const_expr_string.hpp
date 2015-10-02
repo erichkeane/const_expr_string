@@ -95,7 +95,7 @@ namespace const_expr_string
             constexpr size_type find_last_not_of(const_pointer, size_type pos, size_type count) const;
         private:
             const_pointer _data;
-            static constexpr size_type str_len(const char* str);
+            static constexpr size_type str_len(const_pointer str);
 
             template <typename TermCmp, typename Mut, typename SucCmp>
             constexpr size_type find_base(size_type initPos,
