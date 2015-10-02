@@ -112,7 +112,9 @@ namespace const_expr_string
     constexpr typename const_expr_string<CharT>::const_reference const_expr_string<CharT>::at(const_expr_string<CharT>::size_type pos) const
     {
         return pos >= size() ?
-            throw std::out_of_range("call to at with too large index") :
+            // GCC complains that this throw returns a temporary,
+            // so the comma and operator[](0) is to silence that
+            throw std::out_of_range("call to at with too large index"), operator[](0) :
             operator[](pos);
     }
 
@@ -245,7 +247,7 @@ namespace const_expr_string
 
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::rfind(
-           const_expr_string<CharT>::const_expr_string v,
+           const_expr_string<CharT> v,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(
@@ -319,7 +321,7 @@ namespace const_expr_string
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_of(
-            const_expr_string<CharT>::const_expr_string v,
+            const_expr_string<CharT> v,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(
@@ -364,7 +366,7 @@ namespace const_expr_string
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_of(
-            const_expr_string<CharT>::const_expr_string v,
+            const_expr_string<CharT> v,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(
@@ -409,7 +411,7 @@ namespace const_expr_string
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_first_not_of(
-            const_expr_string<CharT>::const_expr_string v,
+            const_expr_string<CharT> v,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(
@@ -454,7 +456,7 @@ namespace const_expr_string
     }
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find_last_not_of(
-            const_expr_string<CharT>::const_expr_string v,
+            const_expr_string<CharT> v,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(
