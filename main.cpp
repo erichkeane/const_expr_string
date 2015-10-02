@@ -283,8 +283,7 @@ bool test_ostream()
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     std::stringstream ss;
-    assert(ss == ss << ctor1);
-
+    ss << ctor1;
     assert(ss.str() == root);
     return true;
 }
