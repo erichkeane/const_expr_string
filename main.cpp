@@ -16,7 +16,7 @@ struct test_ctors
 
 struct test_char_conversion
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
     static constexpr const_expr_string::const_expr_string<char> ctor2 = ctor1;
 
@@ -34,7 +34,7 @@ struct test_char_conversion
 
 struct test_sizes
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool operator()() const
@@ -48,7 +48,7 @@ struct test_sizes
 
 struct test_iterators
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
     using It = typename const_expr_string::const_expr_string<char>::iterator;
 
@@ -69,7 +69,7 @@ struct test_iterators
 
 struct test_const_iterators
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
     using It = typename const_expr_string::const_expr_string<char>::const_iterator;
 
@@ -90,7 +90,7 @@ struct test_const_iterators
 
 struct test_index_op
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool helper(const_expr_string::const_expr_string<char>::size_type i) const
@@ -109,7 +109,7 @@ struct test_index_op
 
 struct test_at
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool helper(const_expr_string::const_expr_string<char>::size_type i) const
@@ -129,7 +129,7 @@ struct test_at
 
 struct test_data
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool operator()() const
@@ -141,15 +141,15 @@ struct test_data
 
 struct test_base_compare
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
-    static constexpr const char* root2 = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root2[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor2 = root2;
-    static constexpr const char* root3 = "asdfqefaxdvaqwerasds";
+    static constexpr const char root3[] = "asdfqefaxdvaqwerasds";
     static constexpr const_expr_string::const_expr_string<char> ctor3 = root3;
-    static constexpr const char* root4 = "asdfqefaxdvaqwerasdc";
+    static constexpr const char root4[] = "asdfqefaxdvaqwerasdc";
     static constexpr const_expr_string::const_expr_string<char> ctor4 = root4;
-    static constexpr const char* root5 = "qefax";
+    static constexpr const char root5[] = "qefax";
     static constexpr const_expr_string::const_expr_string<char> ctor5 = root5;
 
     constexpr bool operator()() const
@@ -210,13 +210,13 @@ struct test_base_compare
 
 struct test_compare_operators
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
-    static constexpr const char* root2 = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root2[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor2 = root2;
-    static constexpr const char* root3 = "asdfqefaxdvaqwerasds";
+    static constexpr const char root3[] = "asdfqefaxdvaqwerasds";
     static constexpr const_expr_string::const_expr_string<char> ctor3 = root3;
-    static constexpr const char* root4 = "asdfqefaxdvaqwerasdc";
+    static constexpr const char root4[] = "asdfqefaxdvaqwerasdc";
     static constexpr const_expr_string::const_expr_string<char> ctor4 = root4;
 
     constexpr bool operator()() const
@@ -235,7 +235,7 @@ struct test_compare_operators
 
 struct test_front_back
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool operator()() const
@@ -251,7 +251,7 @@ struct test_front_back
 
 struct test_max_size
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     constexpr bool operator()() const
@@ -264,7 +264,7 @@ struct test_max_size
 
 struct test_empty
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
     static constexpr const_expr_string::const_expr_string<char> ctor2 = "";
 
@@ -279,7 +279,7 @@ struct test_empty
 
 bool test_ostream()
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
 
     std::stringstream ss;
@@ -290,11 +290,11 @@ bool test_ostream()
 
 struct test_find
 {
-    static constexpr const char* root = "asdfqefaxdvaqwerasdf";
+    static constexpr const char root[] = "asdfqefaxdvaqwerasdf";
     static constexpr const_expr_string::const_expr_string<char> ctor1 = root;
-    static constexpr const char* root2 = "axd";
+    static constexpr const char root2[] = "axd";
     static constexpr const_expr_string::const_expr_string<char> ctor2 = root2;
-    static constexpr const char* root3 = "df";
+    static constexpr const char root3[] = "df";
     static constexpr const_expr_string::const_expr_string<char> ctor3 = root3;
 
     constexpr bool operator()() const
