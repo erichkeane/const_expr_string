@@ -82,7 +82,7 @@ namespace const_expr_string
     template <typename CharT>
     constexpr typename const_expr_string<CharT>::iterator const_expr_string<CharT>::begin() const noexcept
     {
-        return &*_data;
+        return _data;
     }
 
     template <typename CharT>
