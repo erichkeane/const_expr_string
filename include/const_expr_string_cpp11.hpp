@@ -57,7 +57,7 @@ namespace const_expr_string
     {
         return index == count ? true :
             (
-                chars[index] == *lhs ? false : is_one_of_helper(chars, lhs, index +1, count)
+                chars[index] == *lhs ? false : is_not_one_of_helper(chars, lhs, index +1, count)
             );
     }
 
@@ -75,10 +75,10 @@ namespace const_expr_string
 
     template<typename CharT>
     constexpr int compare_helper(
-            typename const_expr_string<CharT>::const_expr_string& lhs,
+            const const_expr_string<CharT>& lhs,
             typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
-            typename const_expr_string<CharT>::const_expr_string& rhs,
+            const const_expr_string<CharT>& rhs,
             typename const_expr_string<CharT>::size_type pos2,
             typename const_expr_string<CharT>::size_type index
             )
@@ -102,21 +102,7 @@ namespace const_expr_string
         return count1 < count2 ? -1 :
             (
                 count1 > count2 ?  1 :
-                compare_helper(*this, pos1, count1, v, pos2, 0)
+                compare_helper<CharT>(*this, pos1, count1, v, pos2, 0)
             );
-    /*    typename const_expr_string<CharT>::size_type lhsSize = count1;
-        typename const_expr_string<CharT>::size_type rhsSize = count2;
-
-        if (lhsSize < rhsSize) return -1;
-        if (lhsSize > rhsSize) return 1;
-
-        for (const_expr_string<CharT>::size_type i = 0; i < lhsSize; ++i)
-        {
-            if (_data[i + pos1] < v._data[i + pos2]) return -1;
-            if (_data[i + pos1] > v._data[i + pos2]) return 1;
-        }
-
-        return 0;
-        */
     }
 }
