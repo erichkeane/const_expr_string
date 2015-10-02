@@ -252,7 +252,7 @@ bool test_ostream()
     return true;
 }
 
-/*constexpr */bool test_find()
+constexpr bool test_find()
 {
     constexpr const char* root = "asdfqefaxdvaqwerasdf";
     constexpr const_expr_string::const_expr_string<char> ctor1 = root;
@@ -313,6 +313,5 @@ int main()
     static_assert(test_max_size(), "failed");
     static_assert(test_compare_operators(), "failed");
     assert(test_ostream());
-    //static_assert(test_find(), "failed");
-    test_find();
+    static_assert(test_find(), "failed");
 }
