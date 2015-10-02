@@ -6,8 +6,10 @@ for static-const char and #define X string constants.
 
 It emulates string_view as close as possible.
 
-Compatible with C++14 ONLY, and g++ versions pre-5.0 don't work (since they don't allow multi-line constexpr).
+Compatible with C++14 AND C++11 (though separate implementations for each for a few functions).  Tested on G++4.9 and 5.2, and clang++ 3.5 and 3.6.1.
 
-See main.cpp for examples/tests to validate that the functionality was done at compile-time!
-
-To compile, do: clang++ -std=c++14 -O3 -I./include main.cpp
+To compile the main test, just do:
+g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
+g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
+g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
+g++ -std=c++14 -O3 -Wextra -Wall -Werror -I./include main.cpp
