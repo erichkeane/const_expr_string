@@ -14,7 +14,7 @@ namespace const_expr_string
             using traits_type = std::char_traits<value_type>;
             using size_type = size_t;
             using difference_type = std::ptrdiff_t;
-            using const_pointer = const CharT *;
+            using const_pointer = const CharT*;
             using pointer = const_pointer;
             using const_reference = const CharT&;
             using reference = const_reference;
