@@ -87,7 +87,7 @@ namespace const_expr_string
         using first_argument_type = T;
         using second_argument_type = T;
 
-        constexpr result_type operator() (
+        constexpr result_type operator()(
                 const first_argument_type& lhs,
                 const second_argument_type& rhs) const;
     };
@@ -98,7 +98,7 @@ namespace const_expr_string
         using first_argument_type = T;
         using second_argument_type = T;
 
-        constexpr result_type operator() (
+        constexpr result_type operator()(
                 const first_argument_type& lhs,
                 const second_argument_type& rhs) const;
     };
@@ -109,7 +109,7 @@ namespace const_expr_string
         using second_argument_type = T;
         using result_type = decltype(first_argument_type(0) + second_argument_type(0));
 
-        constexpr result_type operator() (
+        constexpr result_type operator()(
                 const first_argument_type& lhs,
                 const second_argument_type& rhs) const;
     };
@@ -120,7 +120,7 @@ namespace const_expr_string
         using second_argument_type = T;
         using result_type = decltype(first_argument_type(0) - second_argument_type(0));
 
-        constexpr result_type operator() (
+        constexpr result_type operator()(
                 const first_argument_type& lhs,
                 const second_argument_type& rhs) const;
     };
