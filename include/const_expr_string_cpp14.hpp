@@ -75,7 +75,7 @@ namespace const_expr_string
     }
 
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (typename const_expr_string<CharT>::size_type pos1,
+    constexpr int const_expr_string<CharT>::compare(typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
             typename const_expr_string<CharT>::const_expr_string v,
             const_expr_string<CharT>::size_type pos2,

@@ -24,7 +24,7 @@ namespace const_expr_string
     }
 
     template <typename T>
-    constexpr typename less<T>::result_type less<T>::operator() (
+    constexpr typename less<T>::result_type less<T>::operator()(
             const first_argument_type& lhs,
             const second_argument_type& rhs) const
     {
@@ -32,7 +32,7 @@ namespace const_expr_string
     }
 
     template <typename T>
-    constexpr typename greater_equal<T>::result_type greater_equal<T>::operator() (
+    constexpr typename greater_equal<T>::result_type greater_equal<T>::operator()(
             const first_argument_type& lhs,
             const second_argument_type& rhs) const
     {
@@ -40,7 +40,7 @@ namespace const_expr_string
     }
 
     template <typename T>
-    constexpr typename plus<T>::result_type plus<T>::operator() (
+    constexpr typename plus<T>::result_type plus<T>::operator()(
             const first_argument_type& lhs,
             const second_argument_type& rhs) const
     {
@@ -48,7 +48,7 @@ namespace const_expr_string
     }
 
     template <typename T>
-    constexpr typename minus<T>::result_type minus<T>::operator() (
+    constexpr typename minus<T>::result_type minus<T>::operator()(
             const first_argument_type& lhs,
             const second_argument_type& rhs) const
     {
@@ -149,13 +149,13 @@ namespace const_expr_string
         return _data[0] == '\0';
     }
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (const_expr_string<CharT> v) const
+    constexpr int const_expr_string<CharT>::compare(const_expr_string<CharT> v) const
     {
         return compare(0, size(), v, 0, size());
     }
 
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (typename const_expr_string<CharT>::size_type pos1,
+    constexpr int const_expr_string<CharT>::compare(typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
             typename const_expr_string<CharT>::const_expr_string v) const
     {
@@ -163,14 +163,14 @@ namespace const_expr_string
     }
 
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (
+    constexpr int const_expr_string<CharT>::compare(
             typename const_expr_string<CharT>::const_pointer s) const
     {
         return compare(0, size(), s, str_len(s));
     }
 
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (
+    constexpr int const_expr_string<CharT>::compare(
             typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
             typename const_expr_string<CharT>::const_pointer s) const
@@ -179,7 +179,7 @@ namespace const_expr_string
     }
 
     template<typename CharT>
-    constexpr int const_expr_string<CharT>::compare (
+    constexpr int const_expr_string<CharT>::compare(
             typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
             typename const_expr_string<CharT>::const_pointer s,
@@ -202,25 +202,25 @@ namespace const_expr_string
     }
 
     template<typename CharT>
-    constexpr bool operator < (const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
+    constexpr bool operator<(const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
     {
         return lhs.compare(rhs) < 0;
     }
 
     template<typename CharT>
-    constexpr bool operator <= (const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
+    constexpr bool operator<=(const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
     {
         return lhs.compare(rhs) <= 0;
     }
 
     template<typename CharT>
-    constexpr bool operator > (const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
+    constexpr bool operator>(const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
     {
         return lhs.compare(rhs) > 0;
     }
 
     template<typename CharT>
-    constexpr bool operator >= (const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
+    constexpr bool operator>=(const_expr_string<CharT> lhs, const_expr_string<CharT> rhs)
     {
         return lhs.compare(rhs) >= 0;
     }
