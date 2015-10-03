@@ -1,9 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <stdexcept>
-#include <limits>
-#include <type_traits>
+#include <cstdlib>
+#include <string>
 
 namespace const_expr_string
 {
