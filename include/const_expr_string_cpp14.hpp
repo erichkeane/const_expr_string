@@ -1,5 +1,5 @@
 #pragma once
-namespace const_expr_string
+namespace erichkeane
 {
     template <typename CharT>
     constexpr typename const_expr_string<CharT>::size_type

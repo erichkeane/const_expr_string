@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <string>
 
-namespace const_expr_string
+namespace erichkeane
 {
     // Definition
     template<typename CharT>

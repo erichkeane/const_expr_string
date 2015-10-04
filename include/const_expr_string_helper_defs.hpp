@@ -2,7 +2,7 @@
 
 // contains a number of helper definitions.  most of these can be replaced once the standard library
 // makes the standard version constexpr
-namespace const_expr_string
+namespace erichkeane
 {
     template <typename CharT>
     struct char_equal

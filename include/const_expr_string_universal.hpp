@@ -1,8 +1,9 @@
 #pragma once
+#include <limits>
 
 #include "const_expr_string_helper_defs.hpp"
 // File exists for definitions that are both C++11 and C++14
-namespace const_expr_string
+namespace erichkeane
 {
     // Helper implementations
     template<typename CharT>
