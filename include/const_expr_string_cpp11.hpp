@@ -3,7 +3,7 @@ namespace erichkeane
 {
     template <typename CharT>
     constexpr typename const_expr_string<CharT>::size_type
-    const_expr_string<CharT>::str_len(const_expr_string<CharT>::const_pointer str)
+    const_expr_string<CharT>::str_len(typename const_expr_string<CharT>::const_pointer str)
     {
         return str[0] =='\0' ? 0 : 1 + str_len(str+1);
     }
@@ -11,8 +11,8 @@ namespace erichkeane
     template<typename CharT> template <typename TermCmp, typename Mut, typename SucCmp>
     constexpr typename const_expr_string<CharT>::size_type
     const_expr_string<CharT>::find_base(
-            const_expr_string<CharT>::size_type initPos,
-            const_expr_string<CharT>::size_type termVal, TermCmp termcmp,
+            typename const_expr_string<CharT>::size_type initPos,
+            typename const_expr_string<CharT>::size_type termVal, TermCmp termcmp,
             Mut mut, SucCmp cmp) const
     {
         return termcmp(initPos, termVal) ?
@@ -96,8 +96,8 @@ namespace erichkeane
     constexpr int const_expr_string<CharT>::compare(typename const_expr_string<CharT>::size_type pos1,
             typename const_expr_string<CharT>::size_type count1,
             typename const_expr_string<CharT>::const_expr_string v,
-            const_expr_string<CharT>::size_type pos2,
-            const_expr_string<CharT>::size_type count2) const
+            typename const_expr_string<CharT>::size_type pos2,
+            typename const_expr_string<CharT>::size_type count2) const
     {
         return count1 < count2 ? -1 :
             (

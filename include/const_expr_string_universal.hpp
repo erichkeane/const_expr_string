@@ -58,12 +58,12 @@ namespace erichkeane
     // Member Implementations
     template <typename CharT>
     constexpr const_expr_string<CharT>::const_expr_string(
-            const_expr_string<CharT>::const_pointer data) noexcept
+            typename const_expr_string<CharT>::const_pointer data) noexcept
     : _data(data){}
 
     template <typename CharT>
     constexpr const_expr_string<CharT>::operator
-            const_expr_string<CharT>::const_pointer() const noexcept
+            typename const_expr_string<CharT>::const_pointer() const noexcept
     {
         return _data;
     }
@@ -104,13 +104,13 @@ namespace erichkeane
     }
 
     template<typename CharT>
-    constexpr typename const_expr_string<CharT>::const_reference const_expr_string<CharT>::operator[](const_expr_string<CharT>::size_type pos) const
+    constexpr typename const_expr_string<CharT>::const_reference const_expr_string<CharT>::operator[](typename const_expr_string<CharT>::size_type pos) const
     {
         return _data[pos];
     }
 
     template<typename CharT>
-    constexpr typename const_expr_string<CharT>::const_reference const_expr_string<CharT>::at(const_expr_string<CharT>::size_type pos) const
+    constexpr typename const_expr_string<CharT>::const_reference const_expr_string<CharT>::at(typename const_expr_string<CharT>::size_type pos) const
     {
         return pos >= size() ?
             // GCC complains that this throw returns a temporary,
@@ -259,7 +259,7 @@ namespace erichkeane
 
     template<typename CharT>
     constexpr typename const_expr_string<CharT>::size_type const_expr_string<CharT>::find(
-            const_expr_string<CharT>::value_type c,
+            typename const_expr_string<CharT>::value_type c,
             typename const_expr_string<CharT>::size_type pos) const
     {
         return find_base(pos,
