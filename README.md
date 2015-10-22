@@ -10,10 +10,26 @@ Compatible with C++14 AND C++11 (though separate implementations for each for a 
 
 To compile the main test, just do one of the following:
 
+```shell
 g++ -std=c++14 -O3 -Wextra -Wall -Werror main.cpp
-
+```
+```shell
 g++ -std=c++11 -O3 -Wextra -Wall -Werror main.cpp
-
+```
+```shell
 clang++ -std=c++14 -O3 -Wextra -Wall -Werror main.cpp
-
+```
+```shell
 clang++ -std=c++11 -O3 -Wextra -Wall -Werror main.cpp
+```
+
+Or, if you have CMake:
+
+```shell
+mkdir build
+cd build
+cmake ..
+make
+```
+
+This will produce a binary called `main` in `build/bin/`.

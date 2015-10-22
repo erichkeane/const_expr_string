@@ -29,3 +29,6 @@
 
 # Editor files
 *.swp
+
+# CMake files
+build/
