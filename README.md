@@ -22,3 +22,14 @@ clang++ -std=c++14 -O3 -Wextra -Wall -Werror main.cpp
 ```shell
 clang++ -std=c++11 -O3 -Wextra -Wall -Werror main.cpp
 ```
+
+Or, if you have CMake:
+
+```shell
+mkdir build
+cd build
+cmake ..
+make
+```
+
+This will produce a binary called `main` in `build/bin/`.
